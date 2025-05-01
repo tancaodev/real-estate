@@ -34,9 +34,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# asset download
-/asset-download/
-
 **/node_modules/
 **/dist/
 
@@ -61,3 +58,6 @@ client/.env
 server/.env
 client/.next/
 node_modules
+
+.editorconfig
+.prettierrc
