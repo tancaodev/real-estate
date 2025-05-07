@@ -9,7 +9,7 @@ import { useGetAuthUserQuery } from '@/state/api'
 import { usePathname, useRouter } from 'next/navigation'
 import { signOut } from 'aws-amplify/auth'
 import { Bell, MessageCircle, Plus, Search } from 'lucide-react'
-import { DropdownMenu, DropdownMenuLabel, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from './ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from './ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { SidebarTrigger } from './ui/sidebar'
 
