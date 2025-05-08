@@ -4,12 +4,31 @@ import Navbar from '@/components/Navbar'
 
 import { NAVBAR_HEIGHT } from '@/lib/constants'
 import { useGetAuthUserQuery } from '@/state/api'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { useEffect } from 'react'
 
 const layout = ({ children }: { children: React.ReactNode }) => {
-    const { data: authUser } = useGetAuthUserQuery()
+    const { data: authUser, isLoading: authLoading } = useGetAuthUserQuery()
+    const router = useRouter()
+    const pathname = usePathname()
+    const [isLoading, setIsLoading] = useState(true)
 
-    console.log('authUser: ', authUser)
+    useEffect(() => {
+        if (authUser) {
+            const userRole = authUser.userRole?.toLowerCase()
 
+            if ((userRole === 'manager' && pathname.startsWith('/search')) || (userRole === 'manager' && pathname === '/')) {
+                router.push('/managers/properties', { scroll: false })
+            } else {
+                setIsLoading(false)
+            }
+        }
+    }, [authUser, pathname, router])
+
+    if (authLoading || isLoading) return <>Loading...</>
+   
     return (
         <div className='h-full w-full'>
             <Navbar />
