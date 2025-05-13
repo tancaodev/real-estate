@@ -59,9 +59,25 @@ export const updateManager = async (req: Request, res: Response): Promise<void> 
     }
 }
 
+/**
+ * Retrieves all properties associated with a specific manager
+ * 
+ * This function:
+ * 1. Gets the manager's cognitoId from request parameters
+ * 2. Fetches all properties where managerCognitoId matches
+ * 3. For each property, converts the WKT coordinates to GeoJSON format
+ * 4. Returns an array of properties with formatted location data
+ * 
+ * @param req - Express request object containing manager's cognitoId
+ * @param res - Express response object
+ * @returns Promise<void>
+ */
 export const getManagerProperties = async (req: Request, res: Response): Promise<void> => {
     try {
+        // Get manager's cognitoId from request parameters
         const { cognitoId } = req.params
+        
+        // Fetch all properties associated with this manager
         const properties = await prisma.property.findMany({
             where: { managerCognitoId: cognitoId },
             include: {
@@ -69,15 +85,19 @@ export const getManagerProperties = async (req: Request, res: Response): Promise
             }
         })
 
+        // Process each property to format location coordinates
         const propertiesWithFormattedLocation = await Promise.all(
             properties.map(async (property) => {
+                // Get WKT coordinates from database
                 const coordinates: { coordinates: string }[] =
                     await prisma.$queryRaw`SELECT ST_asText(coordinates) as coordinates from "Location" where id = ${property.location.id}`
 
+                // Convert WKT to GeoJSON format
                 const geoJSON: any = wktToGeoJSON(coordinates[0]?.coordinates || '')
                 const longitude = geoJSON.coordinates[0]
                 const latitude = geoJSON.coordinates[1]
 
+                // Return property with formatted location data
                 return {
                     ...property,
                     location: {
