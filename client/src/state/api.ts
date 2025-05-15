@@ -24,7 +24,7 @@ export const api = createApi({
     tagTypes: ['Managers', 'Tenants'],
     endpoints: (build) => ({
         getAuthUser: build.query<User, void>({
-            queryFn: async (_, _queryApi, _extraOptions, fetchWithBQ) => {
+            queryFn: async (_, _queryApi, _extraoptions, fetchWithBQ) => {
                 try {
                     const session = await fetchAuthSession()
                     const { idToken } = session.tokens ?? {}
@@ -34,7 +34,7 @@ export const api = createApi({
 
                     let userDetailsResponse = await fetchWithBQ(endpoint)
 
-                    // if user doesn't exist, create a new user
+                    // if user doesn't exist, create new user
                     if (userDetailsResponse.error && userDetailsResponse.error.status === 404) {
                         userDetailsResponse = await createNewUserInDatabase(user, idToken, userRole, fetchWithBQ)
                     }
