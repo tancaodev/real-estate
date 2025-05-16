@@ -10,6 +10,7 @@ import { cleanParams } from '@/lib/utils'
 
 import FiltersFull from './FiltersFull'
 import FiltersBar from './FiltersBar'
+import Map from './Map'
 
 const SearchPage = () => {
     const searchParams = useSearchParams()
@@ -49,7 +50,7 @@ const SearchPage = () => {
                 >
                     <FiltersFull />
                 </div>
-                {/* <Map /> */}
+                <Map />
                 <div className='basis-4/12 overflow-y-auto'>{/* <Listings /> */}</div>
             </div>
         </div>

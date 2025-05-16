@@ -34,6 +34,11 @@ const FiltersBar = () => {
         router.push(`${pathname}?${updatedSearchParams.toString()}`)
     })
 
+    /**
+     * Handles changes to filter values and updates the global state and URL accordingly.
+     * Processes different types of filters (price ranges, coordinates, etc) and formats their values appropriately.
+     * Updates both the Redux store and URL parameters when filters change.
+     */
     const handleFilterChange = (key: string, value: any, isMin: boolean | null) => {
         let newValue = value
 
