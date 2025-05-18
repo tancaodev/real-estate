@@ -99,7 +99,7 @@ const FiltersBar = () => {
                 <div className='flex gap-1'>
                     {/* Minimum Price Selector */}
                     <Select value={filters.priceRange[0]?.toString() || 'any'} onValueChange={(value) => handleFilterChange('priceRange', value, true)}>
-                        <SelectTrigger className='w-22 rounded-xl border-primary-400'>
+                        <SelectTrigger className='w-36 rounded-xl border-primary-400'>
                             <SelectValue>{formatPriceValue(filters.priceRange[0], true)}</SelectValue>
                         </SelectTrigger>
                         <SelectContent className='bg-white'>
@@ -114,7 +114,7 @@ const FiltersBar = () => {
 
                     {/* Maximum Price Selector */}
                     <Select value={filters.priceRange[1]?.toString() || 'any'} onValueChange={(value) => handleFilterChange('priceRange', value, false)}>
-                        <SelectTrigger className='w-22 rounded-xl border-primary-400'>
+                        <SelectTrigger className='w-36 rounded-xl border-primary-400'>
                             <SelectValue>{formatPriceValue(filters.priceRange[1], false)}</SelectValue>
                         </SelectTrigger>
                         <SelectContent className='bg-white'>
@@ -132,7 +132,7 @@ const FiltersBar = () => {
                 <div className='flex gap-1'>
                     {/* Beds */}
                     <Select value={filters.beds} onValueChange={(value) => handleFilterChange('beds', value, null)}>
-                        <SelectTrigger className='w-26 rounded-xl border-primary-400'>
+                        <SelectTrigger className='w-28 rounded-xl border-primary-400'>
                             <SelectValue placeholder='Beds' />
                         </SelectTrigger>
                         <SelectContent className='bg-white'>
@@ -146,7 +146,7 @@ const FiltersBar = () => {
 
                     {/* Baths */}
                     <Select value={filters.baths} onValueChange={(value) => handleFilterChange('baths', value, null)}>
-                        <SelectTrigger className='w-26 rounded-xl border-primary-400'>
+                        <SelectTrigger className='w-28 rounded-xl border-primary-400'>
                             <SelectValue placeholder='Baths' />
                         </SelectTrigger>
                         <SelectContent className='bg-white'>
@@ -160,7 +160,7 @@ const FiltersBar = () => {
 
                 {/* Property Type */}
                 <Select value={filters.propertyType || 'any'} onValueChange={(value) => handleFilterChange('propertyType', value, null)}>
-                    <SelectTrigger className='w-32 rounded-xl border-primary-400'>
+                    <SelectTrigger className='w-44 rounded-xl border-primary-400'>
                         <SelectValue placeholder='Home Type' />
                     </SelectTrigger>
                     <SelectContent className='bg-white'>
