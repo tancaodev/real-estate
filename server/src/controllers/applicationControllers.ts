@@ -177,7 +177,6 @@ export const updateApplicationStatus = async (req: Request, res: Response): Prom
     try {
         const { id } = req.params
         const { status } = req.body
-        console.log('status:', status)
 
         const application = await prisma.application.findUnique({
             where: { id: Number(id) },

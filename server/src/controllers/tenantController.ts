@@ -141,7 +141,6 @@ export const addFavoriteProperty = async (req: Request, res: Response): Promise<
     try {
         // Extract cognitoId and propertyId from request parameters
         const { cognitoId, propertyId } = req.params
-
         // Find tenant and include their current favorites
         const tenant = await prisma.tenant.findUnique({
             where: { cognitoId },

@@ -19,8 +19,8 @@ const Listings = () => {
     const handleFavoriteToggle = async (propertyId: number) => {
         if (!authUser) return
 
-        const isFavorite = authUser.userInfo.favorites.some((fav: Property) => fav.id === propertyId)
-
+        const isFavorite = tenant?.favorites?.some((fav: Property) => fav.id === propertyId)
+        
         if (isFavorite) {
             await removeFavorite({
                 cognitoId: authUser.cognitoInfo.userId,

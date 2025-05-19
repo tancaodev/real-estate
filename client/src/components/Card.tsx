@@ -4,8 +4,6 @@ import Link from 'next/link'
 import { Bath, Bed, Heart, House, Star } from 'lucide-react'
 
 const Card = ({ property, isFavorite, onFavoriteToggle, showFavoriteButton = true, propertyLink }: CardProps) => {
-    console.log(property);
-    
     const [imgSrc, setImgSrc] = useState(property.photoUrls?.[0] || '/placeholder.jpg')
 
     return (
