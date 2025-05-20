@@ -1,5 +1,5 @@
 import { cleanParams, createNewUserInDatabase } from '@/lib/utils'
-import { Manager, Property, Tenant } from '@/types/prismaTypes'
+import { Lease, Manager, Payment, Property, Tenant } from '@/types/prismaTypes'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth'
 import { FiltersState } from '.'
@@ -22,7 +22,7 @@ export const api = createApi({
         }
     }),
     reducerPath: 'api',
-    tagTypes: ['Managers', 'Tenants', 'Properties', 'PropertyDetails'],
+    tagTypes: ['Managers', 'Tenants', 'Properties', 'PropertyDetails', 'Leases', 'Payments'],
     endpoints: (build) => ({
         getAuthUser: build.query<User, void>({
             queryFn: async (_, _queryApi, _extraoptions, fetchWithBQ) => {
@@ -92,7 +92,7 @@ export const api = createApi({
         }),
         getProperty: build.query<Property, number>({
             query: (id) => `properties/${id}`,
-            providesTags: (result, error, id) => [{ type: 'PropertyDetails', id }],
+            providesTags: (result, error, id) => [{ type: 'PropertyDetails', id }]
             // async onQueryStarted(_, { queryFulfilled }) {
             //     await withToast(queryFulfilled, {
             //         error: 'Failed to load property details.'
@@ -107,6 +107,18 @@ export const api = createApi({
             // async onQueryStarted(_, { queryFulfilled }) {
             //     await withToast(queryFulfilled, {
             //         error: 'Failed to load tenant profile.'
+            //     })
+            // }
+        }),
+        getCurrentResidences: build.query<Property[], string>({
+            query: (cognitoId) => `tenants/${cognitoId}/current-residences`,
+            providesTags: (result) =>
+                result
+                    ? [...result.map(({ id }) => ({ type: 'Properties' as const, id })), { type: 'Properties', id: 'LIST' }]
+                    : [{ type: 'Properties', id: 'LIST' }]
+            // async onQueryStarted(_, { queryFulfilled }) {
+            //     await withToast(queryFulfilled, {
+            //         error: 'Failed to fetch current residences.'
             //     })
             // }
         }),
@@ -154,6 +166,27 @@ export const api = createApi({
                     id: result?.cognitoId
                 }
             ]
+        }),
+
+        // lease related endpoints
+        getLeases: build.query<Lease[], number>({
+            query: () => 'leases',
+            providesTags: ['Leases']
+            //   async onQueryStarted(_, { queryFulfilled }) {
+            //     await withToast(queryFulfilled, {
+            //       error: "Failed to fetch leases.",
+            //     });
+            //   },
+        }),
+
+        getPayments: build.query<Payment[], number>({
+            query: (leaseId) => `leases/${leaseId}/payments`,
+            providesTags: ['Payments']
+            //   async onQueryStarted(_, { queryFulfilled }) {
+            //     await withToast(queryFulfilled, {
+            //       error: "Failed to fetch payment info.",
+            //     });
+            //   },
         })
     })
 })
@@ -165,6 +198,9 @@ export const {
     useGetPropertiesQuery,
     useGetPropertyQuery,
     useGetTenantQuery,
+    useGetCurrentResidencesQuery,
     useAddFavoritePropertyMutation,
-    useRemoveFavoritePropertyMutation
+    useRemoveFavoritePropertyMutation,
+    useGetLeasesQuery,
+    useGetPaymentsQuery
 } = api
