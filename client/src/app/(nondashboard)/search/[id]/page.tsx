@@ -9,7 +9,7 @@ import PropertyOverview from './PropertyOverview'
 import PropertyDetails from './PropertyDetails'
 import PropertyLocation from './PropertyLocation'
 import ContactWidget from './ContactWidget'
-// import ApplicationModal from './ApplicationModal'
+import ApplicationModal from './ApplicationModal'
 
 function SingleListing() {
     const { id } = useParams()
@@ -32,7 +32,7 @@ function SingleListing() {
                 </div>
             </div>
 
-            {/* {authUser && <ApplicationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} propertyId={propertyId} />} */}
+            {authUser && <ApplicationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} propertyId={propertyId} />}
         </div>
     )
 }
