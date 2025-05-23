@@ -9,7 +9,7 @@ import { NAVBAR_HEIGHT } from '@/lib/constants'
 
 import Navbar from '@/components/Navbar'
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
     const { data: authUser, isLoading: authLoading } = useGetAuthUserQuery()
     const router = useRouter()
     const pathname = usePathname()
@@ -24,8 +24,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
             } else {
                 setIsLoading(false)
             }
-        }
-        else {
+        } else {
             setIsLoading(false)
         }
     }, [authUser, pathname, router])
@@ -47,4 +46,4 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     )
 }
 
-export default layout
+export default Layout
