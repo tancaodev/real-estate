@@ -37,7 +37,7 @@ next-env.d.ts
 **/node_modules/
 **/dist/
 
-.env
+TODO.md
 client/.env.local
 client/.env.development
 client/.env.production
